@@ -1,0 +1,8 @@
+[run]
+source = app
+disable_warnings = no-data-collected
+
+[report]
+fail_under = 100.00
+precision = 2
+show_missing = True
