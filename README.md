@@ -31,4 +31,4 @@ I've already left a Docker image ready to use. Just run it:
 docker run -p 8501:8501 --rm alvarofpp/app-jinja2
 ```
 
-[streamlit-app]: https://streamlit.io/cloud
+[streamlit-app]: https://jinja2-templates.streamlit.app/
