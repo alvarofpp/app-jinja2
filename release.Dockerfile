@@ -6,13 +6,13 @@ ENV PATH="/opt/venv/bin:$PATH"
 
 # Install requirements
 # hadolint ignore=DL3013
+COPY app/ /app/
 RUN pip3 install --no-cache-dir --upgrade pip
 COPY requirements.txt /tmp/requirements.txt
 RUN pip3 install --no-cache-dir --requirement /tmp/requirements.txt
 
-COPY app/ /app/
-
-# Set environment variables
+# Setting
 ENV WORKDIR=/app
 WORKDIR ${WORKDIR}
-ENTRYPOINT ["streamlit", "run", "app/app.py"]
+EXPOSE 8501
+ENTRYPOINT ["streamlit", "run", "app.py"]
