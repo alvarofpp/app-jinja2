@@ -1,5 +1,7 @@
 # Jinja2 template app
 
+[![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=Streamlit&logoColor=white)][streamlit-app]
+
 An application made in Streamlit that allows you to test Jinja2 templates.
 
 ## How to use
