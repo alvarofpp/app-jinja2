@@ -6,9 +6,6 @@ ROOT=$(shell pwd)
 DOCKER_IMAGE_LINTER=alvarofpp/linter:latest
 LINT_COMMIT_TARGET_BRANCH=origin/main
 
-## Test
-TEST_CONTAINER_NAME=${APP_NAME}_test
-
 # Commands
 .PHONY: install-hooks
 install-hooks:
@@ -22,6 +19,18 @@ build: install-hooks
 build-no-cache: install-hooks
 	@docker compose build --no-cache --pull
 
+.PHONY:
+down:
+	@docker compose down
+
+.PHONY:
+up:
+	@docker compose up ${SERVICE_NAME}
+
+.PHONY:
+up-silent:
+	@docker compose up -d ${SERVICE_NAME}
+
 .PHONY: lint
 lint:
 	@docker pull ${DOCKER_IMAGE_LINTER}
@@ -33,17 +42,11 @@ lint:
 		&& lint-shell-script \
 		&& lint-python"
 
-.PHONY: test
-test:
-	@docker compose run --rm -v ${ROOT}:/app \
-		--name ${TEST_CONTAINER_NAME} ${APP_NAME} \
-		pytest
-
-.PHONY: test-coverage
-test-coverage:
-	@docker compose run --rm -v ${ROOT}:/app \
-		--name ${TEST_CONTAINER_NAME} ${APP_NAME} \
-		/bin/bash -c "pytest --cov=app/"
+.PHONY: lint-fix
+lint-fix:
+	@docker pull ${DOCKER_IMAGE_LINTER}
+	@docker run --rm -v ${ROOT}:/app ${DOCKER_IMAGE_LINTER} " \
+		lint-python-fix"
 
 .PHONY: shell
 shell:

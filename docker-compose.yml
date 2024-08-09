@@ -1,11 +1,13 @@
 ---
-version: '3.8'
-
 services:
   app:
     build:
       context: .
-    image: alvarofpp/app
-    container_name: app
+      dockerfile: dev.Dockerfile
+    image: alvarofpp/app-jinja2-dev
+    container_name: app_jinja2_dev
+    command: streamlit run app/app.py
     volumes:
       - .:/app
+    ports:
+      - "8501:8501"
